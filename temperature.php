@@ -78,18 +78,18 @@
 	</head>
 	<body>
 		
-		<nav class="navbar navbar-default navbar-static-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<a href="home.php" class="navbar-brand">Notcutts Web System</a>
-				</div>
-				<ul class="nav navbar-nav navbar-right">
-					<li><p class="navbar-text">Logged In As: <b><?php echo ucfirst($_SESSION['name']); ?></b></p></li>
-					<li class="active"><a href="home.php">Home</a></li>
-					<li><a href="logout.php">Logout</a></li>
-				</ul>
-			</div>
-		</nav>
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="home.php" class="navbar-brand">Notcutts Web System</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Logged In As: <b><?php echo ucfirst($_SESSION['name']); ?></b></p></li>
+                    <li class="active"><a href="home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
 
 		<div class="container">
             <ol class="breadcrumb">
@@ -101,7 +101,7 @@
         <div class="container">
         	<div class="jumbotron">
         		<button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
-                    Add Item To Sheet
+                    Add New Sheet
                 </button>  
         		<table class="table tabled-strieped tabled-bordered">
         			<thead>
@@ -189,7 +189,7 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>

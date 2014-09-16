@@ -1,8 +1,6 @@
 	<?php
 
     include "inc/conx.php";
-    //mysql_connect("localhost", "root", "");
-    //mysql_select_db("notcutts");
 
     session_start();
 
@@ -21,15 +19,15 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
                     <a href="home.php" class="navbar-brand">Notcutts Web System</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text">Logged In As: <b><?php echo ucfirst($_SESSION['name']); ?></b></p></li>
-                    <li><a href="home.php">Home</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Logged In As: <b><?php echo ucfirst($_SESSION['name']); ?></b></p></li>
+                    <li class="active"><a href="home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                 </ul>
             </div>
         </nav>
@@ -44,17 +42,17 @@
         <?php
 
             if (isset($_POST['itemSubmit'])) {
-                $newItem = $_POST['itemName'];
-                $newItemQuantity = $_POST['itemQuantity'];
+                $newItem = mysql_real_escape_string($_POST['itemName']);
+                $newItemQuantity = mysql_real_escape_string($_POST['itemQuantity']);
                 if (!empty($_POST['itemName'])) {
                     if (!empty($_POST['itemQuantity'])) {
                         mysqli_query($dbc, "INSERT INTO stock (item, quantity) VALUES('$newItem', '$newItemQuantity')");
                         header('location: stock.php');
                     } else {
-                        echo '<div class="alert alert-danger">Please Fill In All Fields</div>';
+                        echo '<div class="container"><div class="alert alert-danger">Please Fill In All Fields</div></div>';
                     }
                 } else {
-                    echo '<div class="alert alert-danger">Please Fill In All Fields</div>';
+                    echo '<div class="container"><div class="alert alert-danger">Please Fill In All Fields</div></div>';
                     }
                 }
 
@@ -65,7 +63,7 @@
                 <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
                     Add Item
                 </button>   
-                <button id="showKey" class="btn btn-info">
+                <button id="showKey" class="btn btn-primary">
                     Show Colour Key
                 </button>
                 <table id="key" class="table table-striped table-borderer">
@@ -83,7 +81,13 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table table-striped table-bordered">
+                <table class="table">
+                    <tbody>
+                        <tr><td><input type="text" id="search" class="form-control" placeholder="Search..." /></td></tr>
+                    </tbody>
+                </table>
+
+                <table id="stock" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -117,7 +121,7 @@
                                     echo '
                                         <tr>
                                             <td>' . $row->id . '</td>
-                                            <td>' . $row->item . '</td>
+                                            <td id="stockItem">' . $row->item . '</td>
                                             <td class=' . $class . '>' . $row->quantity . '</td>
                                             <td style="width: 100px;">
                                                 <form method="POST" action="edit.php?id=' . $row->id . '" role="form">
@@ -174,7 +178,7 @@
                     </table>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
@@ -193,6 +197,27 @@
             $("#showKey").click(function() {
                 $("#key").toggle();
             });
+
+            $("#search").on("keyup", function() {
+            var value = $(this).val();
+
+            $("#stock tr").each(function(index) {
+
+                if (index != 0) {
+                    $row = $(this);
+
+                    var id = $row.find("td:nth-child(2)").text();
+
+                    console.log(id);
+
+                    if (id.indexOf(value) != 0) {
+                        $(this).fadeOut(200);
+                    } else {
+                        $(this).fadeIn(200);
+                    }
+                }
+            });
+        });
 
         </script>
 
