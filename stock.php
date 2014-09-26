@@ -201,7 +201,7 @@
             //Search
             $("#search").on("keyup", function() {
             var value = $(this).val();
-
+ 
             $("#stock tr").each(function(index) {
 
                 if (index != 0) {
