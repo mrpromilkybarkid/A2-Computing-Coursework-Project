@@ -34,8 +34,8 @@
 		</nav>
 
 		<div class="container">
-			<div class="center-block well " style="max-width: 900px; margin-top: 20px; padding-top: 0px;">
-				<div class="page-header"><h2>Dashboard</h2></div>
+			<div class="center-block well " style="max-width: 900px; margin-top: 20px; padding-top: 10px;">
+				<legend>Dashboard</legend>
 				<div class="list-group">
 					<a href="stock.php" class="list-group-item"><span class="glyphicon glyphicon-cutlery"></span> Stock List</a>
 					<a href="wastage.php" class="list-group-item"><span class="glyphicon glyphicon-trash"></span> Wastage Sheets</a>

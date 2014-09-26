@@ -87,10 +87,9 @@
                     </tbody>
                 </table>
 
-                <table id="stock" class="table table-striped table-bordered">
+                <table id="stock" style="margin-top: -20px;" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Item</th>
                             <th>Quantity</th>
                         </tr>
@@ -120,7 +119,6 @@
 
                                     echo '
                                         <tr>
-                                            <td>' . $row->id . '</td>
                                             <td id="stockItem">' . $row->item . '</td>
                                             <td class=' . $class . '>' . $row->quantity . '</td>
                                             <td style="width: 100px;">
@@ -190,14 +188,17 @@
 
         <script type="text/javascript">
 
+            //Key Hide On Page Load
             $(document).ready(function() {
                 $("#key").hide();
             });
 
+            //Key Toggle
             $("#showKey").click(function() {
                 $("#key").toggle();
             });
 
+            //Search
             $("#search").on("keyup", function() {
             var value = $(this).val();
 
@@ -206,7 +207,7 @@
                 if (index != 0) {
                     $row = $(this);
 
-                    var id = $row.find("td:nth-child(2)").text();
+                    var id = $row.find("td:first").text();
 
                     console.log(id);
 

@@ -60,6 +60,8 @@
     				<!-- Javascript Includes -->
 			        <script src="js/jquery.js"></script>
 			        <script src="js/bootstrap.js"></script>
+                    <script src="flot/jquery.flot.js"></script>
+                    <script src="flot/axislabel.js"></script>
 
     			</body>
     		</html>
