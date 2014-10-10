@@ -4,8 +4,20 @@
 	function load($page = 'notcutts/production/index.php') {
 		//Defines the base URL
 		$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+
+		/*
+		* The two lines below are used to protect against MYSQL injection
+		*/
+
 		//Trims the parameter of all /s
 		$url = rtrim($url, '/\\');
+		//Trims the $url of all `s
+		$url = rtrim($url, '`\\');
+
+		/*
+		* The above two lines are used to protect against MYSQL injection
+		*/
+
 		//Concatenates the parameter onto the end of a slash to make it a valid URL
 		$url = '/' . $page;
 		//Loads the given url variable

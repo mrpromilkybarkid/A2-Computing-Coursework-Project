@@ -17,7 +17,7 @@
     	$newGetDate = date("l jS F Y", strtotime($getDate));
 
     	?>
-
+        
     		<!doctype html>
     		<html lang="en">
     			<head>

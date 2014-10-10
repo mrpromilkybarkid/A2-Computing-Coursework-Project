@@ -18,7 +18,7 @@
 
 ?>
 
-<!doctype html>
+            <!doctype html>
     		<html lang="en">
     			<head>
     				<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
@@ -110,6 +110,7 @@
         				</tr>
         			</thead>
         			<tbody>
+
         				<?php
 
         					$result = mysqli_query($dbc, "SELECT DISTINCT date FROM temperature ORDER BY date DESC");
@@ -138,17 +139,36 @@
         					}
 
         				?>
+
         			</tbody>
         		</table>
-        	</div>
+                <hr />
+                <ol>
+                <?php
+
+                    $result1 = mysqli_query($dbc, "SELECT DISTINCT appliance FROM temperature");
+
+                    $checkRow1 = mysqli_num_rows($result1);
+                    $count = 1;
+
+                    while($count <= $checkRow1) {
+                        echo '
+                            <a href="temperature_flot.php?appliance=Fridge ' . $count . '" class="btn btn-info">Fridge ' . $count . ' - Graph</a>
+                        ';
+                        $count++;
+                    }
+
+                ?>
+                     </ol>
+            </div>
         </div>
 
         <?php
 
         	if (isset($_POST['tempSubmit'])) {
-        		if (!empty($_POST['tempName'])) {
+        		if (!empty($_POST['appliance'])) {
         			if (!empty($_POST['temp'])) {
-        				$tempName = $_POST['tempName'];
+        				$tempName = $_POST['appliance'];
         				$temp = $_POST['temp'];
 
         				mysqli_query($dbc, "INSERT INTO temperature (appliance, temperature, `date`) VALUES('$tempName', '$temp', now())")or die(mysql_error());
@@ -174,9 +194,20 @@
               <div class="modal-body">
                 <table class="table">
                     <tbody>
-                        <form role="form" method="POST">
+                        <form role="form" method="POST" id="temperature">
                             <tr>
-                                <td><input type="text" class="form-control" name="tempName" placeholder="Fridge/Freezer..." /></td>
+                                <td>
+                                    <select name="appliance" class="form-control" form="temperature">
+                                        <option value="Fridge 1">Fridge 1</option>
+                                        <option value="Fridge 2">Fridge 2</option>
+                                        <option value="Fridge 3">Fridge 3</option>
+                                        <option value="Fridge 4">Fridge 4</option>
+                                        <option value="Fridge 5">Fridge 5</option>
+                                        <option value="Fridge 6">Fridge 6</option>
+                                        <option value="Fridge 7">Fridge 7</option>
+                                        <option value="Fridge 8">Fridge 8</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="text" class="form-control" name="temp" placeholder="Temperature (C)..." /></td>
@@ -193,7 +224,7 @@
               </div>
             </div>
           </div>
-        </div>	
+        </div>
 
 		<!-- Javascript Includes -->
 		<script src="js/jquery.js"></script>

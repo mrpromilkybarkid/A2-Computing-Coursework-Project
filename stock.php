@@ -1,4 +1,4 @@
-	<?php
+<?php
 
     include "inc/conx.php";
 
@@ -200,25 +200,22 @@
 
             //Search
             $("#search").on("keyup", function() {
-            var value = $(this).val();
- 
-            $("#stock tr").each(function(index) {
+                var value = $(this).val();
 
-                if (index != 0) {
-                    $row = $(this);
+                $("#stock tr").each(function(index) {
+                    if (index !== 0) {
+                        $row = $(this);
 
-                    var id = $row.find("td:first").text();
+                        var id = $row.find("td:first").text();
 
-                    console.log(id);
-
-                    if (id.indexOf(value) != 0) {
-                        $(this).fadeOut(200);
-                    } else {
-                        $(this).fadeIn(200);
+                        if (id.indexOf(value) !== 0) {
+                            $row.fadeOut(250);
+                        } else {
+                            $row.fadeIn(250);
+                        }
                     }
-                }
+                });
             });
-        });
 
         </script>
 
