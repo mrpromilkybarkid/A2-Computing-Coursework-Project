@@ -1,11 +1,17 @@
 <?php
 
-    include "inc/conx.php";
+    //No script on this page will run until the connection script has been included within the page
+    require "inc/conx.php";
 
+    //Start a new session so that the user remains logged in and the user's login data is remembered whilst on the site
     session_start();
 
+    //Check whether the session has been set using the user ID
     if (!isset($_SESSION['id'])) {
+        //If the session has not been set(user is not logged in), include the login tools script
         require 'inc/login_tools.php';
+        //Use the load function within the login tools script
+        //This will redirect the user back to the index page where they will need to login 
         load();
     }
 
@@ -41,17 +47,27 @@
 
         <?php
 
+            //Check to see if the add item form has been submitted
             if (isset($_POST['itemSubmit'])) {
+                //If it has, create a variable to store the item name which has been escaped
                 $newItem = mysql_real_escape_string($_POST['itemName']);
+                //Also create a variable to store the item quantity which has been escaped
                 $newItemQuantity = mysql_real_escape_string($_POST['itemQuantity']);
+                //Check to see if the item name field is empty
                 if (!empty($_POST['itemName'])) {
+                    //Check to see if the item quantity is empty
                     if (!empty($_POST['itemQuantity'])) {
+                        //If both are not empty...
+                        //Run this query to insert the new data into the table
                         mysqli_query($dbc, "INSERT INTO stock (item, quantity) VALUES('$newItem', '$newItemQuantity')");
+                        //Redirect back to the stock page
                         header('location: stock.php');
                     } else {
+                        //If the item quantity field is empty, output an error
                         echo '<div class="container"><div class="alert alert-danger">Please Fill In All Fields</div></div>';
                     }
                 } else {
+                    //If the item naem field is empty, output an error
                     echo '<div class="container"><div class="alert alert-danger">Please Fill In All Fields</div></div>';
                     }
                 }
@@ -97,26 +113,46 @@
                     <tbody>
                         <?php
 
+                            //Set a variable equel to a query to get everything from the stock table
+                            //Order by the amount of the item there is
                             $result = mysqli_query($dbc, "SELECT * FROM `stock` ORDER BY `quantity`")or die(mysql_error());
                             
+                            //Check how many rows match the query just run
                             $checkNum = mysqli_num_rows($result);
 
+                            //Check to see if there are more than 0 results found
                             if ($checkNum !== 0) {
+                                //If yes...
+                                //Create the row array to contain all the items grabbed from the table
                                 while($row = mysqli_fetch_object($result)) {
+                                    //Set the class variable equal to an empty string
                                     $class = '';
 
+                                    //Check to see if the amount of the item is less than or equal to 5
                                     if ($row->quantity <= 5) {
+                                        //Set the class to danger
                                         $class = 'danger';
                                     }
 
+                                    //Check to see if the amount of the item is greater than 5
                                     if ($row->quantity > 5) {
+                                        //Set the class to warning
                                         $class = 'warning';
                                     }
 
+                                    //Check to see if the amount of the item is greater than 15
                                     if ($row->quantity > 15) {
+                                        //Set the class to success
                                         $class = 'success';
                                     }
 
+                                    //Output...
+                                    //The name of the item as well as the quantity
+                                    //In the quantity table item, set the class to the class variables we defined before
+                                    //This will change the background of the table item based on the quantity of the item
+                                    //Also output an update button to change the values
+                                    //As well as a delete button to delete the values
+                                    //These buttons are based off the item id 
                                     echo '
                                         <tr>
                                             <td id="stockItem">' . $row->item . '</td>
@@ -135,6 +171,8 @@
                                     ';
                                 }
                             } else {
+                                //If there are 0 rows return
+                                //Output an error message to the user
                                 echo '
                                     <tr>
                                         <td class="danger">No Items Found</td>
@@ -200,17 +238,25 @@
 
             //Search
             $("#search").on("keyup", function() {
+                //Set the variable value equal to the search input box
                 var value = $(this).val();
 
+                //Run through each table row within the stock table
                 $("#stock tr").each(function(index) {
+                    //If the search returns more than 0 results
                     if (index !== 0) {
+                        //Set the row variable equal to the values within the stock table
                         $row = $(this);
 
+                        //Set the id variable to find anything that matches the row variable in the first table row
                         var id = $row.find("td:first").text();
 
+                        //Check to see if this returns more than 0
                         if (id.indexOf(value) !== 0) {
+                            //If it does, fade out all items that do not match the search
                             $row.fadeOut(250);
                         } else {
+                            //If not, fade in all items
                             $row.fadeIn(250);
                         }
                     }

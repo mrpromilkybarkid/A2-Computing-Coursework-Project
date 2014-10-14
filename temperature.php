@@ -1,13 +1,19 @@
 <?php
 
-	include "inc/conx.php";
+    //No script on this page will run until the connection script has been included within the page
+    require "inc/conx.php";
 
-	session_start();
+    //Start a new session so that the user remains logged in and the user's login data is remembered whilst on the site
+    session_start();
 
-	if (!isset($_SESSION['id'])) {
-		require "inc/login_tools.php";
-		load();
-	}
+    //Check whether the session has been set using the user ID
+    if (!isset($_SESSION['id'])) {
+        //If the session has not been set(user is not logged in), include the login tools script
+        require 'inc/login_tools.php';
+        //Use the load function within the login tools script
+        //This will redirect the user back to the index page where they will need to login 
+        load();
+    }
 
 	if (isset($_GET['date'])) {
 		$getDate = $_GET['date'];
@@ -143,7 +149,18 @@
         			</tbody>
         		</table>
                 <hr />
-                <ol>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><p>Graphs</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="col-md-6">
+                            <select name="applianceGraph" class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+                                <option value="" disabled selected>Select your option</option>
+
                 <?php
 
                     $result1 = mysqli_query($dbc, "SELECT DISTINCT appliance FROM temperature");
@@ -152,14 +169,22 @@
                     $count = 1;
 
                     while($count <= $checkRow1) {
+                        //echo '
+                        //    <a href="temperature_flot.php?appliance=Fridge ' . $count . '" class="btn btn-info">Fridge ' . $count . ' - Graph</a>
+                        //';
                         echo '
-                            <a href="temperature_flot.php?appliance=Fridge ' . $count . '" class="btn btn-info">Fridge ' . $count . ' - Graph</a>
+                            <option value="temperature_flot.php?appliance=Fridge ' . $count . '">Fridge ' . $count . '</option>
                         ';
+
                         $count++;
                     }
 
                 ?>
-                     </ol>
+
+                            </select>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
 

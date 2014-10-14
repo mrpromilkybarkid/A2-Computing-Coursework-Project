@@ -82,7 +82,34 @@
 	        </nav>
 
 		<div class="container">
-			<a href="temperature.php" class="btn btn-danger">Back</a>
+		<ol>
+                    <select name="applianceGraph" class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+                        <option value="" disabled selected>Select your option</option>
+                        
+                <?php
+
+                    $result1 = mysqli_query($dbc, "SELECT DISTINCT appliance FROM temperature");
+
+                    $checkRow1 = mysqli_num_rows($result1);
+                    $count = 1;
+
+                    while($count <= $checkRow1) {
+                        //echo '
+                        //    <a href="temperature_flot.php?appliance=Fridge ' . $count . '" class="btn btn-info">Fridge ' . $count . ' - Graph</a>
+                        //';
+                        echo '
+                            <option value="temperature_flot.php?appliance=Fridge ' . $count . '">Fridge ' . $count . '</option>
+                        ';
+
+                        $count++;
+                    }
+
+                ?>
+
+                    </select>
+                </ol>
+			<a href="temperature.php" class="btn btn-danger">Back</a> <br />
+			<br />
 			<hr />
 			<h1>Temperatures for <?php echo $appliance; ?></h1>
 		</div>
