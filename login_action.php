@@ -10,7 +10,7 @@
 		//Create a list of all the data and validate the username and password based on the code from login_tools
 		list($check, $data) = validate($dbc, $_POST['loginUsername'], $_POST['loginPassword']);
 
-		//Check to see if the check was successful and the data is valid
+		//Check to see if the check was successful and the data is valid 
 		if ($check) {
 			//Start the session
 			session_start();
