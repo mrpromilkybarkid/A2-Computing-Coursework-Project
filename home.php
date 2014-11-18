@@ -11,7 +11,7 @@
     	//If the session has not been set(user is not logged in), include the login tools script
         require 'inc/login_tools.php';
         //Use the load function within the login tools script
-        //This will redirect the user back to the index page where they will need to login 
+        //This will redirect the user back to the index page where they will need to login
         load();
     }
 
@@ -33,8 +33,8 @@
 					<li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Logged In As: <b>
 						<?php
 							//Output the name of the person logged In
-							//First letter in the is capitilised 
-							echo ucfirst($_SESSION['name']); 
+							//First letter in the is capitilised
+							echo ucfirst($_SESSION['name']);
 						?>
 					</b></p></li>
 					<li class="active"><a href="home.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
@@ -44,22 +44,21 @@
 		</nav>
 
 		<div class="container">
-			<div class="center-block well " style="max-width: 900px; margin-top: 20px; padding-top: 10px;">
+			<div class="well" style="margin-top: 20px; padding-top: 10px;">
 				<legend>Dashboard</legend>
 				<div class="list-group">
 					<a href="stock.php" class="list-group-item"><span class="glyphicon glyphicon-cutlery"></span> Stock List</a>
 					<a href="wastage.php" class="list-group-item"><span class="glyphicon glyphicon-trash"></span> Wastage Sheets</a>
-					<a href="temperature.php" class="list-group-item"><span class="glyphicon glyphicon-copyright-mark"></span> Temperature Sheets</a>
+					<a href="temp.php" class="list-group-item"><span class="glyphicon glyphicon-copyright-mark"></span> Temperature Sheets</a>
 				</div>
 				<hr />
-				<p>Notcutts Web System <b>Version 0.1</b></p>
+				<p>Notcutts Web System - Created By: <b><a href="http://benpowley.co.uk">Ben Powley</a></b></p>
 			</div>
 		</div>
 
 		<!-- Javascript Includes -->
 		<script src="js/jquery.js"></script>
 		<script src="js/bootstrap.js"></script>
-
 
 	</body>
 </html>

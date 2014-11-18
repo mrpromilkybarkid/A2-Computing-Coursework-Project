@@ -15,8 +15,10 @@
         load();
     }
 
+    //Check to make sure that the appliance is in the address bar
 	if (isset($_GET['appliance'])) {
 
+		//Asign to GET appliance to a variable
 		$appliance = $_GET['appliance'];
 
 		$check = mysqli_query($dbc, "SELECT * FROM temperature WHERE appliance = '$appliance'");

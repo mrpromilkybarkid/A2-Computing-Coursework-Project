@@ -11,7 +11,7 @@
         //If the session has not been set(user is not logged in), include the login tools script
         require 'inc/login_tools.php';
         //Use the load function within the login tools script
-        //This will redirect the user back to the index page where they will need to login 
+        //This will redirect the user back to the index page where they will need to login
         load();
     }
 
@@ -78,7 +78,7 @@
             <div class="jumbotron">
                 <button class="btn btn-success pull-right" data-toggle="modal" data-target="#myModal">
                     Add Item
-                </button>   
+                </button>
                 <button id="showKey" class="btn btn-primary">
                     Show Colour Key
                 </button>
@@ -103,7 +103,7 @@
                     </tbody>
                 </table>
 
-                <table id="stock" style="margin-top: -20px;" class="table table-striped table-bordered">
+                <table id="stock" style="margin-top: -20px;" class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -116,7 +116,7 @@
                             //Set a variable equel to a query to get everything from the stock table
                             //Order by the amount of the item there is
                             $result = mysqli_query($dbc, "SELECT * FROM `stock` ORDER BY `quantity`")or die(mysql_error());
-                            
+
                             //Check how many rows match the query just run
                             $checkNum = mysqli_num_rows($result);
 
@@ -152,7 +152,7 @@
                                     //This will change the background of the table item based on the quantity of the item
                                     //Also output an update button to change the values
                                     //As well as a delete button to delete the values
-                                    //These buttons are based off the item id 
+                                    //These buttons are based off the item id
                                     echo '
                                         <tr>
                                             <td id="stockItem">' . $row->item . '</td>
@@ -226,7 +226,7 @@
 
         <script type="text/javascript">
 
-            //Key Hide On Page Load
+            //Hide Key On Page Load
             $(document).ready(function() {
                 $("#key").hide();
             });
